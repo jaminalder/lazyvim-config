@@ -6,3 +6,7 @@ debug
 foo.*
 *.log
 data
+
+# clojure-lsp / clj-kondo caches
+.lsp/
+.clj-kondo/.cache/
