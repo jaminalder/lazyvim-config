@@ -18,3 +18,5 @@ vim.keymap.set("v", "'", "`", { noremap = true, silent = true })
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 vim.keymap.set({ "t" }, "<C-n>", "<C-\\><C-n>") -- quit Terminal mode, but leave the terminal window open and go to normal mode
+
+require("config.todos").setup()

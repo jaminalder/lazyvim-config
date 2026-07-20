@@ -34,3 +34,17 @@ vim.api.nvim_create_autocmd("User", {
     vim.schedule(open_conjure_log)
   end,
 })
+
+local function disable_text_completion()
+  vim.b.completion = false
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("disable_text_completion", { clear = true }),
+  pattern = { "markdown", "text" },
+  callback = disable_text_completion,
+})
+
+if vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) then
+  disable_text_completion()
+end

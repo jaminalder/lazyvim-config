@@ -53,6 +53,82 @@ return {
   -- REPL-aware completion from Conjure, bridged into blink.cmp (this config's
   -- completion engine) via blink.compat + cmp-conjure.
   {
+    "Olical/conjure",
+    init = function()
+      vim.g["conjure#client_on_load"] = false
+    end,
+    config = function()
+      local function readable(path)
+        return vim.fn.filereadable(path) == 1
+      end
+
+      local function trim(s)
+        local trimmed = (s or ""):gsub("^%s+", ""):gsub("%s+$", "")
+        return trimmed
+      end
+
+      local function live_port(host, port)
+        if not port then
+          return false
+        end
+
+        local tcp = vim.uv.new_tcp()
+        local done = false
+        local ok = false
+        local started = pcall(tcp.connect, tcp, host, port, function(err)
+          ok = err == nil
+          done = true
+          tcp:close()
+        end)
+        if not started then
+          tcp:close()
+          return false
+        end
+        vim.wait(250, function()
+          return done
+        end, 10)
+        if not done then
+          tcp:close()
+        end
+        return ok
+      end
+
+      local function port_file()
+        local path = vim.fs.find({ ".nrepl-port", ".shadow-cljs/nrepl.port" }, {
+          upward = true,
+          path = vim.fn.expand("%:p:h"),
+        })[1]
+        if path and readable(path) then
+          return path
+        end
+      end
+
+      local function connect_live_port_or_start_repl()
+        local port_path = port_file()
+        local port = port_path and tonumber(trim(table.concat(vim.fn.readfile(port_path), "")))
+        local action = require("conjure.client.clojure.nrepl.action")
+        local auto_repl = require("conjure.client.clojure.nrepl.auto-repl")
+
+        if live_port("127.0.0.1", port) then
+          return action["connect-port-file"]()
+        end
+
+        if port_path then
+          vim.notify("Conjure: stale nREPL port file, starting auto REPL", vim.log.levels.INFO)
+        end
+        return auto_repl["upsert-auto-repl-proc"]()
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("clojure_conjure_live_or_auto_repl", { clear = true }),
+        pattern = { "clojure", "clojurescript", "clojurec" },
+        callback = function()
+          vim.schedule(connect_live_port_or_start_repl)
+        end,
+      })
+    end,
+  },
+  {
     "saghen/blink.cmp",
     optional = true,
     dependencies = {
