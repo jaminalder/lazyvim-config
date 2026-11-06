@@ -21,3 +21,4 @@ vim.keymap.set({ "t" }, "<C-n>", "<C-\\><C-n>") -- quit Terminal mode, but leave
 
 require("config.todos").setup()
 require("config.testrunner").setup()
+require("config.runner").setup()
