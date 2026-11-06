@@ -48,3 +48,19 @@ vim.api.nvim_create_autocmd("FileType", {
 if vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) then
   disable_text_completion()
 end
+
+-- No format-on-save for languages formatted by IntelliJ in team repos: jdtls/vtsls
+-- would reformat whole files differently. Manual <leader>cf still works.
+local no_autoformat_fts = { "java", "typescript", "javascript", "html", "htmlangular", "scss", "css" }
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("no_autoformat", { clear = true }),
+  pattern = no_autoformat_fts,
+  callback = function()
+    vim.b.autoformat = false
+  end,
+})
+
+if vim.tbl_contains(no_autoformat_fts, vim.bo.filetype) then
+  vim.b.autoformat = false
+end

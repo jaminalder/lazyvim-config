@@ -8,6 +8,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "ö"
 
+-- Root detection picks the deepest LSP root. angularls roots at each Angular app,
+-- which would shrink pickers/grep to one app instead of the whole monorepo.
+vim.g.root_lsp_ignore = { "copilot", "angularls" }
+
 -- Conjure (Clojure REPL) tweaks. Set here rather than in the plugin spec so we
 -- don't clobber the `init` function defined by LazyVim's Clojure extra. Conjure
 -- reads these globals when it boots, well after this file has loaded.
