@@ -1,19 +1,21 @@
--- Code navigation additions on top of LazyVim's LSP keymaps
--- (gd, gr, gI, gy, <leader>ss, <leader>sS come from LazyVim).
+-- Picker display for deep Java packages: "File.java module/…/last/packages:line:col text".
+-- The path is shortened in the middle, so the file name, module and line number stay
+-- visible. The picker itself is selected in options.lua (vim.g.lazyvim_picker).
 return {
   {
-    "neovim/nvim-lspconfig",
+    "folke/snacks.nvim",
     opts = {
-      servers = {
-        ["*"] = {
-          keys = {
-            -- stylua: ignore start
-            { "gai", "<cmd>FzfLua lsp_incoming_calls<cr>", desc = "C[a]lls Incoming", has = "callHierarchy/incomingCalls" },
-            { "gao", "<cmd>FzfLua lsp_outgoing_calls<cr>", desc = "C[a]lls Outgoing", has = "callHierarchy/outgoingCalls" },
-            -- stylua: ignore end
-          },
-        },
+      picker = {
+        formatters = { file = { filename_first = true, min_width = 80 } },
       },
+    },
+  },
+  -- Only applies if switching back to fzf-lua.
+  {
+    "ibhagwan/fzf-lua",
+    optional = true,
+    opts = {
+      defaults = { formatter = "path.filename_first" },
     },
   },
 }

@@ -12,6 +12,10 @@ vim.g.maplocalleader = "ö"
 -- which would shrink pickers/grep to one app instead of the whole monorepo.
 vim.g.root_lsp_ignore = { "copilot", "angularls" }
 
+-- snacks.picker (LazyVim's default for new installs) shows file name, shortened path
+-- and line number separately; fzf-lua cuts off the line number with long packages.
+vim.g.lazyvim_picker = "snacks"
+
 -- Conjure (Clojure REPL) tweaks. Set here rather than in the plugin spec so we
 -- don't clobber the `init` function defined by LazyVim's Clojure extra. Conjure
 -- reads these globals when it boots, well after this file has loaded.
