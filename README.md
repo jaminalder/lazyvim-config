@@ -21,6 +21,6 @@ TypeScript/Angular, plus Go, Python and Clojure.
 
 - `lua/config/` – options, keymaps, autocmds and the custom test runner (`testrunner.lua`),
   run consoles (`runner.lua`, presets in `run_presets.lua`), notes (`notes.lua`, `todos.lua`)
-  and `:CheatsheetBuild` (the printable sheet lives in `~/private/notes/vim_print_cheatsheet`).
+  and `:CheatsheetBuild` (the printable sheet lives in `~/private/notes/cheatsheets/vim_print_cheatsheet`).
 - `lua/plugins/` – plugin specs: Java/jdtls tuning, pickers, git, palette, notes, Clojure, Oil, lint.
 - `lazyvim.json` – enabled LazyVim extras; `lazy-lock.json` – pinned plugin versions.

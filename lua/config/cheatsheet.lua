@@ -2,7 +2,7 @@
 -- notes, see vim_print_cheatsheet/build.sh) and opens the PDF.
 local M = {}
 
-local build = vim.fn.expand("~/private/notes/vim_print_cheatsheet/build.sh")
+local build = vim.fn.expand("~/private/notes/cheatsheets/vim_print_cheatsheet/build.sh")
 
 function M.build()
   vim.notify("Building cheat sheet PDF…", vim.log.levels.INFO, { title = "Cheat sheet" })
