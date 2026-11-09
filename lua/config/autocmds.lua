@@ -41,11 +41,11 @@ end
 
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("disable_text_completion", { clear = true }),
-  pattern = { "markdown", "text" },
+  pattern = { "text" }, -- markdown: links-only completion, see plugins/notes.lua
   callback = disable_text_completion,
 })
 
-if vim.tbl_contains({ "markdown", "text" }, vim.bo.filetype) then
+if vim.bo.filetype == "text" then
   disable_text_completion()
 end
 
