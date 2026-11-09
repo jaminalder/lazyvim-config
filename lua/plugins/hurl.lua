@@ -43,16 +43,17 @@ return {
       prev_panel = "<C-p>", -- Move to the previous response popup window
     },
   },
+  -- Hurl keys live in a <localleader>h group and only exist in .hurl buffers.
   keys = {
-    -- Run API request
-    { "<leader>A", "<cmd>HurlRunner<CR>", desc = "Run All requests" },
-    { "<leader>a", "<cmd>HurlRunnerAt<CR>", desc = "Run Api request" },
-    { "<leader>te", "<cmd>HurlRunnerToEntry<CR>", desc = "Run Api request to entry" },
-    { "<leader>tE", "<cmd>HurlRunnerToEnd<CR>", desc = "Run Api request from current entry to end" },
-    { "<leader>tm", "<cmd>HurlToggleMode<CR>", desc = "Hurl Toggle Mode" },
-    { "<leader>tv", "<cmd>HurlVerbose<CR>", desc = "Run Api in verbose mode" },
-    { "<leader>tV", "<cmd>HurlVeryVerbose<CR>", desc = "Run Api in very verbose mode" },
-    -- Run Hurl request in visual mode
-    { "<leader>h", ":HurlRunner<CR>", desc = "Hurl Runner", mode = "v" },
+    { "<localleader>h", "", desc = "+hurl", ft = "hurl" },
+    { "<localleader>hr", "<cmd>HurlRunnerAt<CR>", desc = "Run Api request", ft = "hurl" },
+    { "<localleader>hA", "<cmd>HurlRunner<CR>", desc = "Run All requests", ft = "hurl" },
+    { "<localleader>he", "<cmd>HurlRunnerToEntry<CR>", desc = "Run Api request to entry", ft = "hurl" },
+    { "<localleader>hE", "<cmd>HurlRunnerToEnd<CR>", desc = "Run Api request from current entry to end", ft = "hurl" },
+    { "<localleader>hm", "<cmd>HurlToggleMode<CR>", desc = "Hurl Toggle Mode", ft = "hurl" },
+    { "<localleader>hv", "<cmd>HurlVerbose<CR>", desc = "Run Api in verbose mode", ft = "hurl" },
+    { "<localleader>hV", "<cmd>HurlVeryVerbose<CR>", desc = "Run Api in very verbose mode", ft = "hurl" },
+    -- Run the selected Hurl requests
+    { "<localleader>hr", ":HurlRunner<CR>", desc = "Hurl Runner", mode = "v", ft = "hurl" },
   },
 }

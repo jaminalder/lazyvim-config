@@ -28,7 +28,7 @@ return {
   {
     "folke/snacks.nvim",
     keys = {
-      { "<leader>p", palette, desc = "Command Palette (all actions)" },
+      { "<leader>a", palette, desc = "Command Palette (all actions)" },
     },
   },
 }
